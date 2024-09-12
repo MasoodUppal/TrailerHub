@@ -1,8 +1,14 @@
-# Getting Started with Create React App
+The app is still in the works, although its a responsive template of a single page app with navigation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Can also change the colors by going to variable.scss file
 
-## Available Scripts
+Currently desktop UI
+
+![trailer hub 1](https://github.com/user-attachments/assets/60a96920-b36a-42aa-8048-05e95afe8fde)
+
+Mobile UI
+
+![trailer hub 1 mobile](https://github.com/user-attachments/assets/61d6dd0d-4f54-4bab-96a9-0ea1a34e7319)
 
 In the project directory, you can run:
 
