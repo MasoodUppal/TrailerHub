@@ -18,7 +18,7 @@
 
     &.shrink{
         height: $header-shrink-height;
-        background-color: $body-bg;
+        background-color: rgba(0,0,0,0.4);
     }
 
     &__Wrap{
