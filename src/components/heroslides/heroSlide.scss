@@ -2,7 +2,25 @@
 
 .hero-slide{
     margin-bottom: 3rem;
-}
+
+    .swiper-pagination-bullet {
+        background: $main-color; /* Change this to your desired color */
+      }
+      
+      /* Change the color of inactive pagination dots */
+      .swiper-pagination-bullet-inactive {
+        background: #cccccc; /* Change this to your desired color */
+      }
+
+//       .swiper-button-next,
+//       .swiper-button-prev {
+//           color:$main-color; /* Change this to your desired color */
+//           width: 5px; // Set your desired width
+//           height: 5px; // Set your desired height
+//           font-size: 5px; // Adjust font size to make arrows small
+//      }
+
+    }
 
 .hero-slide__item {
     padding: 9rem 0;
@@ -35,6 +53,7 @@
         &__content{
             @include flex(center,center);
             position:relative;
+            will-change: transform, opacity;
         
 
             &__info{
@@ -74,22 +93,41 @@
                     opacity: 0;
                     transform: translateY(-100px);
                     transition: transform 0.5s ease, opacity 0.5s ease;
+                    will-change: transform,opacity;
                 }
 
             }
             &__poster {
                 flex: 1;
+                // background-color:pink;
                 @include flex(center, flex-start);
                 position: relative;
+                flex-direction: row;
+                will-change: transform;
     
-                img {
-                    width: 400px;
-                    border-radius: $border-radius;
-                    box-shadow: $box-shadow;
-    
+                .poster_card {
+                    display: flex;
+                    flex-direction: column;
+                    // background-color: red;
+                    align-items: center;
+
                     transform: scale(0);
                     transition: transform 0.7s ease;
+                    will-change: transform;
+
+                    img{width: 400px;
+                        border-radius: $border-radius;
+                        box-shadow: $box-shadow;
+                    }
+
+                    .rating{
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        padding: 1rem;
+                        // color: $main-color;
+                    }
                 }
+                
 
                 @include tablet {
                     display: none;
@@ -97,9 +135,10 @@
             }    
     }
     &.active > &__content > &__content__poster {
-        img {
+        .poster_card {
             transform: scale(1);
         }
+        
     }
     &.active > &__content > &__content__info {
         .btns,
@@ -118,7 +157,9 @@
         }
 
         .btns {
-            transition-delay: 0.9s, 0.9s;
+            transition-delay: 1.2s, 1.2s;
         }
     }
+
 }
+

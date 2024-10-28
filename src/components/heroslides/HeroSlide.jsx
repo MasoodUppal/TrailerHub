@@ -2,9 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./heroSlide.scss";
 
-import { Autoplay } from "swiper/modules";
+// import { Autoplay } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import tmdbApi, { movieType, category } from "../../api/tmdbApi";
 import apiconfig from "../../api/apiconfig";
@@ -23,7 +26,8 @@ const HeroSlide = () => {
       const params = { page: 1 };
       try {
         const response = await tmdbApi.getMoviesList(movieType.popular, params);
-        setMovieItem(response.results.slice(0, 19));
+        const movies = response.results.slice(0, 19);
+        setMovieItem(movies);
         console.log(response.results);
       } catch (error) {
         console.log(error);
@@ -35,16 +39,20 @@ const HeroSlide = () => {
   return (
     <div className="hero-slide">
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, Pagination, Navigation]}
         autoplay={{
           delay: 5000, // Change slides every 3 seconds
           disableOnInteraction: false, // Continue autoplay after user interaction
         }}
-        effect="fade"
-        speed={1500}
+        // effect="slide"
+        pagination={{
+          clickable: true,
+        }}
+        navigation={false}
+        speed={1000}
         loop={true}
         grabCursor={true}
-        spaceBetween={0}
+        spaceBetween={30}
         slidesPerView={1}
       >
         {movieItem.map((item, i) => (
@@ -82,12 +90,35 @@ const HeroSlideItem = (props) => {
     const videos = await tmdbApi.getVideos(category.movie, item.id);
 
     try {
+      console.log(videos);
+      // if (videos.results.length > 0) {
+      //   const videSrc =
+      //     "https://www.youtube.com/embed/" +
+      //     videos.results[videos.results.length - 1].key;
+      //   modal
+      //     .querySelector(".modal__content > iframe")
+      //     .setAttribute("src", videSrc);
+      // } else {
+      //   modal.querySelector(".modal__content").innerHTML = "No trailer";
+      // }
+
       if (videos.results.length > 0) {
-        const videSrc =
-          "https://www.youtube.com/embed/" + videos.results[0].key;
-        modal
-          .querySelector(".modal__content > iframe")
-          .setAttribute("src", videSrc);
+        // Find the index of the video with the name "Official Trailer"
+        const officialTrailer = videos.results.find((video) =>
+          video.name.toLowerCase().includes("official trailer")
+        );
+
+        if (officialTrailer) {
+          // If found, construct the video URL
+          const videSrc =
+            "https://www.youtube.com/embed/" + officialTrailer.key;
+          modal
+            .querySelector(".modal__content > iframe")
+            .setAttribute("src", videSrc);
+        } else {
+          // If no official trailer is found, display a message
+          modal.querySelector(".modal__content").innerHTML = "No trailer";
+        }
       } else {
         modal.querySelector(".modal__content").innerHTML = "No trailer";
       }
@@ -126,10 +157,13 @@ const HeroSlideItem = (props) => {
           </div>
         </div>
         <div className="hero-slide__item__content__poster">
-          <img
-            src={apiconfig.w500Img(item.poster_path)}
-            alt="poster of movie"
-          />
+          <div className="poster_card">
+            <img
+              src={apiconfig.w500Img(item.poster_path)}
+              alt="poster of movie"
+            />
+            <div className="rating">Rated:  {item.vote_average.toFixed(1)}</div>
+          </div>
         </div>
       </div>
     </div>
