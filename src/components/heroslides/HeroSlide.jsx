@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./heroSlide.scss";
 
 // import { Autoplay } from "swiper/modules";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
+// import "swiper/css/navigation";
 
 import tmdbApi, { movieType, category } from "../../api/tmdbApi";
 import apiconfig from "../../api/apiconfig";
@@ -21,13 +21,27 @@ import "boxicons/css/boxicons.min.css";
 const HeroSlide = () => {
   const [movieItem, setMovieItem] = useState([]);
 
+  const [loop, setLoop] = useState(false);
+
   useEffect(() => {
     const getMovies = async () => {
       const params = { page: 1 };
       try {
         const response = await tmdbApi.getMoviesList(movieType.popular, params);
-        const movies = response.results.slice(0, 19);
-        setMovieItem(movies);
+        const currentDate = new Date();
+        const fiveYearsAgo = new Date();
+        fiveYearsAgo.setFullYear(currentDate.getFullYear() - 5);
+
+        // Filter movies released in the last 5 years
+        const recentMovies = response.results.filter((movie) => {
+          const releaseDate = new Date(movie.release_date);
+          return releaseDate >= fiveYearsAgo;
+        });
+        // Limit the number of movies to 19
+        setMovieItem(recentMovies.slice(0, 19));
+        // const response = await tmdbApi.getMoviesList(movieType.popular, params);
+        // const movies = response.results.slice(0, 19);
+        // setMovieItem(movies);
         console.log(response.results);
       } catch (error) {
         console.log(error);
@@ -39,7 +53,7 @@ const HeroSlide = () => {
   return (
     <div className="hero-slide">
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
         autoplay={{
           delay: 5000, // Change slides every 3 seconds
           disableOnInteraction: false, // Continue autoplay after user interaction
@@ -48,12 +62,20 @@ const HeroSlide = () => {
         pagination={{
           clickable: true,
         }}
-        navigation={false}
+        //navigation={false}
         speed={1000}
-        loop={true}
+        // loop={true}
+        // loop={loop}
+        onReachEnd={() => {
+            if (!loop) {
+              setLoop(true); // Enable loop
+            }
+          }}
         grabCursor={true}
         spaceBetween={30}
         slidesPerView={1}
+        centeredSlides={true}
+        className="mySwiper"
       >
         {movieItem.map((item, i) => (
           <SwiperSlide key={i}>
@@ -117,10 +139,20 @@ const HeroSlideItem = (props) => {
             .setAttribute("src", videSrc);
         } else {
           // If no official trailer is found, display a message
-          modal.querySelector(".modal__content").innerHTML = "No trailer";
+          modal.querySelector(".modal__content").innerHTML = `
+                    <div class="modal__close__content">No Offical Trailer Available Yet</div>
+                    <div class="modal__content__close" onClick="document.querySelector('#modal_${item.id}').classList.remove('active')">
+                        <i class="bx bx-x"></i>
+                    </div>
+                `;
         }
       } else {
-        modal.querySelector(".modal__content").innerHTML = "No trailer";
+        modal.querySelector(".modal__content").innerHTML = `
+                    <div class="modal__close__content">No offical trailer available</div>
+                    <div class="modal__content__close" onClick="document.querySelector('#modal_${item.id}').classList.remove('active')">
+                        <i class="bx bx-x"></i>
+                    </div>
+                `;
       }
 
       modal.classList.toggle("active");
@@ -162,7 +194,8 @@ const HeroSlideItem = (props) => {
               src={apiconfig.w500Img(item.poster_path)}
               alt="poster of movie"
             />
-            <div className="rating">Rated:  {item.vote_average.toFixed(1)}</div>
+            <div className="releaseDate">Relesed: {item.release_date}</div>
+            <div className="rating">Rated: {item.vote_average.toFixed(1)}</div>
           </div>
         </div>
       </div>

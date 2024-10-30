@@ -29,6 +29,7 @@
     background-size: cover;
     position: relative;
     background-repeat: no-repeat;
+    z-index: 0;
 
     &::before {
         content: "";
@@ -38,6 +39,7 @@
         width: 100%;
         height: 100%;
         @include overlay();
+        z-index: 1;
     }
 
     &::after {
@@ -48,12 +50,14 @@
         width: 100%;
         height: 200px;
         background-image: linear-gradient(to top,$body-bg, rgba($black, 0));
+        z-index: 1;
     }
 
         &__content{
             @include flex(center,center);
             position:relative;
             will-change: transform, opacity;
+            z-index: 2;
         
 
             &__info{
@@ -63,6 +67,7 @@
 
                 @include tablet {
                     width: 100%;
+                    z-index: 3;
                 }
 
                 & > * ~ * {
@@ -85,6 +90,7 @@
 
                 .btns > * ~ * {
                     margin-left: 1rem;
+                    z-index: 4;
                 }
 
                 .btns,
@@ -94,6 +100,7 @@
                     transform: translateY(-100px);
                     transition: transform 0.5s ease, opacity 0.5s ease;
                     will-change: transform,opacity;
+                    z-index: 4;
                 }
 
             }
@@ -120,6 +127,11 @@
                         box-shadow: $box-shadow;
                     }
 
+                    .releaseDate{
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        margin-top: 1rem;
+                    }
                     .rating{
                         font-size: 1.5rem;
                         font-weight: 700;
@@ -163,3 +175,29 @@
 
 }
 
+.modal__close__content{
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: $border-radius;
+}
+
+.modal__content__close {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    display: flex;
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+    width: 40px; /* Set width */
+    height: 40px; /* Set height */
+    background-color: rgba(235, 100, 100, 0.8); /* Background color with transparency */
+    border-radius: 50%; /* Make it circular */
+    position: absolute; /* Position it */
+    top: 10px; /* Distance from the top */
+    right: 10px; /* Distance from the right */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+  }
+  
+  .modal__content__close:hover {
+    background-color: rgba(255, 255, 255, 1); /* Change background on hover */
+  }

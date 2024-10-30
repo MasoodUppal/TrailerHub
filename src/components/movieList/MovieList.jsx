@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import "./movie-list.scss";
 import tmdbApi, { category } from "../../api/tmdbApi";
 
-import { Link } from "react-router-dom";
-import Button from "../button/Button";
-import apiconfig from "../../api/apiconfig";
+// import { Link } from "react-router-dom";
+// import Button from "../button/Button";
+// import apiconfig from "../../api/apiconfig";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 // import 'swiper/css';
@@ -35,7 +35,7 @@ const MovieList = (props) => {
       setitem(response.results);
     };
     getList();
-  }, []);
+  }, [props.category, props.type, props.id]);
 
   return (
     <div className="movie-list">
@@ -46,7 +46,7 @@ const MovieList = (props) => {
         slidesPerView={"auto"}
       >
         {item.map((item, i) => (
-          <SwiperSlide>
+          <SwiperSlide key={i}>
             <MovieCard item={item} category={props.category} />
           </SwiperSlide>
         ))}
