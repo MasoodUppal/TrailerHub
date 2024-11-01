@@ -1,0 +1,45 @@
+@use '../../scss' as *;
+
+.movie-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap: 20px;
+    margin-bottom: 3rem;
+    
+    @include tablet{
+        grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+    };
+
+    &__loadmore{
+        text-align: center;
+    }
+}
+
+.movie-search{
+    position: relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    // margin-bottom: 1rem;
+    // max-width: 500px;
+    gap: 10px;
+    margin: 2rem;
+
+    input{
+        padding: 12px; /* Add padding to the input */
+        padding-left: 20px; /* Additional left padding for centering effect */
+        padding-right: 20px; /* Additional right padding for centering effect */
+        text-align: left;
+        width: 25rem;
+        // margin: 1rem;
+        // font-size: 1.5rem;
+        // text-align: center;
+        &::placeholder{
+            text-align: center;
+        }
+    }
+
+    button{
+       font-size: 1rem;
+    }
+}

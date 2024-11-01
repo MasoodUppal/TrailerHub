@@ -12,12 +12,12 @@ const Home = () => {
       <div className="container">
         <div className="section mb-3">
           <div className="section__header mb-2">
-            <h2>Trending movies</h2>
+            <h2>Top Upcoming Movies</h2>
             <Link to="/movie">
               <OutlineButton className="small">View more</OutlineButton>
             </Link>
           </div>
-          <MovieList category={category.movie} type={movieType.popular}/>
+          <MovieList category={category.movie} type={movieType.upcoming}/>
         </div>
 
         <div className="section mb-3">
