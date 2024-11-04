@@ -12,6 +12,10 @@ const MovieCard = (props) => {
   const link = "/" + category[props.category] + "/" + item.id;
   const bg = apiconfig.w500Img(item.poster_path || item.backdrop_path);
 
+  const rating = typeof item.vote_average === 'number' && !isNaN(item.vote_average) 
+    ? item.vote_average.toFixed(1) 
+    : 'Not Rated';
+
   return (
     <Link to={link}>
       <div className="movie-card" style={{ backgroundImage: `url(${bg})` }}>
@@ -21,7 +25,7 @@ const MovieCard = (props) => {
       </div>
       <div className="title-info">
         <h3>{item.title || item.name}</h3>
-        <div className="rating">Rated: {item.vote_average.toFixed(1)}</div>
+        <div className="rating">Rated: {rating}</div>
         {/* <div className="releaseDate">{item.release_date}</div> */}
       </div>
     </Link>

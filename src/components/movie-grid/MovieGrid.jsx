@@ -17,14 +17,15 @@ const MovieGrid = (props) => {
   const [totalPage, setTotalPage] = useState(0);
 
   const { keyword } = useParams();
-
+  
   useEffect(() => {
+    // console.log('here are props form mov Grid',props)
     const getlist = async () => {
       let response = null;
 
       if (keyword === undefined) {
         const params = {};
-        switch (props.catagory) {
+        switch (props.category) {
           case category.movie:
             response = await tmdbApi.getMoviesList(movieType.upcoming, {
               params,
@@ -37,13 +38,13 @@ const MovieGrid = (props) => {
         const params = {
           query: keyword,
         };
-        response = await tmdbApi.search(props.catagory, { params });
+        response = await tmdbApi.search(props.category, { params });
       }
       setItems(response.results);
       setTotalPage(response.total_pages);
     };
     getlist();
-  }, [props.catagory, keyword]);
+  }, [props.category, keyword]);
 
   const loadMore = async () => {
     let response = null;
@@ -52,7 +53,7 @@ const MovieGrid = (props) => {
       const params = {
         page: page + 1,
       };
-      switch (props.catagory) {
+      switch (props.category) {
         case category.movie:
           response = await tmdbApi.getMoviesList(movieType.upcoming, {
             params,
@@ -66,7 +67,7 @@ const MovieGrid = (props) => {
         page: page + 1,
         query: keyword,
       };
-      response = await tmdbApi.search(props.catagory, { params });
+      response = await tmdbApi.search(props.category, { params });
     }
     setItems([...items, ...response.results]);
     console.log(items);
@@ -76,11 +77,11 @@ const MovieGrid = (props) => {
   return (
     <>
       <div className="section mb3">
-        <MovieSearch catagory={props.catagory} keyword={keyword} />
+        <MovieSearch category={props.category} keyword={keyword} />
       </div>
       <div className="movie-grid">
         {items.map((items, i) => (
-          <MovieCard catagory={props.catagory} item={items} key={i} />
+          <MovieCard category={props.category} item={items} key={i} />
         ))}
       </div>
       {page < totalPage ? (
@@ -101,9 +102,9 @@ const MovieSearch = (props) => {
 
   const goToSearch = useCallback(() => {
     if (keyword.trim().length > 0) {
-      navigate(`/${category[props.catagory]}/search/${keyword}`);
+      navigate(`/${category[props.category]}/search/${keyword}`);
     }
-  }, [keyword, props.catagory, navigate]);
+  }, [keyword, props.category, navigate]);
 
   useEffect(() => {
     const enterEvent = (e) => {

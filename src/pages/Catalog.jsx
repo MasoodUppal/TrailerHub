@@ -8,18 +8,18 @@ import { category as cate } from "../api/tmdbApi";
 import MovieGrid from "../components/movie-grid/MovieGrid";
 
 const Catalog = () => {
-  const { catagory } = useParams();
+  const {category} = useParams();
 
-  console.log(catagory);
+  console.log('from catalog',category);
 
   return (
     <>
       <PageHeader>
-        {catagory === cate.movie ? "Movies" : "TV Series"}
+        {category === cate.movie ? "Movies" : "TV Series"}
       </PageHeader>
       <div className="container">
         <div className="section mb-3">
-            <MovieGrid catagory={catagory}/>
+            <MovieGrid category={category}/>
         </div>
       </div>
     </>
