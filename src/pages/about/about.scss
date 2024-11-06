@@ -1,0 +1,14 @@
+@use '../../scss' as *;
+
+.about{
+    position: relative;
+    padding: $header-height 0 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+
+    h2{
+        font-size: 2rem;
+        padding: 2rem;
+    }
+    
+}

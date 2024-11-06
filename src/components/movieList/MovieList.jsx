@@ -44,6 +44,11 @@ const MovieList = (props) => {
         grabCursor={true}
         spaceBetween={10}
         slidesPerView={"auto"}
+        // freeMode={true} // Enables free sliding without snapping
+        // freeModeMomentum={true} // Smooth scrolling
+        // freeModeMomentumRatio={0.5} // Controls the scrolling momentum
+        // resistanceRatio={0.8} // Makes the end feel bouncier
+        // touchReleaseOnEdges={true} // Allows free sliding at edges
       >
         {item.map((item, i) => (
           <SwiperSlide key={i}>

@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./heroSlide.scss";
 
-// import { Autoplay } from "swiper/modules";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Pagination} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/css/pagination";
@@ -21,13 +20,12 @@ import "boxicons/css/boxicons.min.css";
 const HeroSlide = () => {
   const [movieItem, setMovieItem] = useState([]);
 
-  const [loop, setLoop] = useState(false);
 
   useEffect(() => {
     const getMovies = async () => {
       const params = { page: 1 };
       try {
-        const response = await tmdbApi.getMoviesList(movieType.popular, params);
+        const response = await tmdbApi.getMoviesList(movieType.now_playing, params);
         const currentDate = new Date();
         const fiveYearsAgo = new Date();
         fiveYearsAgo.setFullYear(currentDate.getFullYear() - 5);
@@ -42,7 +40,7 @@ const HeroSlide = () => {
         // const response = await tmdbApi.getMoviesList(movieType.popular, params);
         // const movies = response.results.slice(0, 19);
         // setMovieItem(movies);
-        console.log(response.results);
+        // console.log(response.results);
       } catch (error) {
         console.log(error);
       }
@@ -62,17 +60,13 @@ const HeroSlide = () => {
         pagination={{
           clickable: true,
         }}
-        //navigation={false}
-        speed={1000}
+        // navigation={true}
+        speed={1500}
         // loop={true}
         // loop={loop}
-        onReachEnd={() => {
-            if (!loop) {
-              setLoop(true); // Enable loop
-            }
-          }}
-        grabCursor={true}
-        spaceBetween={30}
+        threshold={1}  
+        grabCursor={false}
+        spaceBetween={10}
         slidesPerView={1}
         centeredSlides={true}
         className="mySwiper"
@@ -102,17 +96,17 @@ const HeroSlide = () => {
 const HeroSlideItem = (props) => {
   const navigate = useNavigate();
   const item = props.item;
-  const background = apiconfig.originalImg(
+  const background = apiconfig.w1280Img(
     item.backdrop_path ? item.backdrop_path : item.poster_path
   );
-
+  // console.log(background);
   const setModalActive = async () => {
     const modal = document.querySelector(`#modal_${item.id}`);
 
     const videos = await tmdbApi.getVideos(category.movie, item.id);
 
     try {
-      console.log(videos);
+      // console.log(videos);
       // if (videos.results.length > 0) {
       //   const videSrc =
       //     "https://www.youtube.com/embed/" +
@@ -170,7 +164,8 @@ const HeroSlideItem = (props) => {
       style={{
         // width: "100vw",
         // height: "100vh",
-        backgroundImage: `url(${background})`,
+        backgroundImage:`url(${background})`
+        //  backgroundImage:`url(https://img.freepik.com/free-photo/path-into-woods_181624-12913.jpg?t=st=1730837084~exp=1730840684~hmac=5799f8cf135092794c55112868e27ff09f05eb3dc63302afd1166df7a47a2b4c&w=1380)`
         // backgroundPosition: "center",
         // backgroundSize: "cover",
       }}
@@ -194,7 +189,7 @@ const HeroSlideItem = (props) => {
               src={apiconfig.w500Img(item.poster_path)}
               alt="poster of movie"
             />
-            <div className="releaseDate">Relesed: {item.release_date}</div>
+            {/* <div className="releaseDate">Relesed: {item.release_date}</div> */}
             <div className="rating">Rated: {item.vote_average.toFixed(1)}</div>
           </div>
         </div>

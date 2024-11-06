@@ -4,6 +4,7 @@ export const movieType = {
   popular: "popular",
   upcoming: "upcoming",
   top_rated: "top_rated",
+  now_playing:"now_playing",
 };
 
 export const tvType = {

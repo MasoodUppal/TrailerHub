@@ -13,7 +13,7 @@ const VideoList = (props) => {
     try {
       const getClips = async () => {
         const res = await tmdbApi.getVideos(category, props.id);
-        setVideo(res.results);
+        setVideo(res.results.reverse());
         console.log(res);
       };
       getClips();
