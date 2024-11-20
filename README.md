@@ -1,3 +1,32 @@
+Trialer hub preview
+
+![trailer hub hero slide](https://github.com/user-attachments/assets/26b782e8-ce48-47cd-b82b-d74fd522d33f)
+
+![trailer hub catalog](https://github.com/user-attachments/assets/8b33dfff-6531-464f-92da-08183da97a78)
+
+![trailer hub footer](https://github.com/user-attachments/assets/8ccc6b88-b087-484c-ab9c-8b7a40912295)
+
+![trailer hub movies](https://github.com/user-attachments/assets/c681ab9f-62b9-4eb4-94b2-02dfe568d1de)
+
+![trialer hub tv shows](https://github.com/user-attachments/assets/f0dbb0b3-566c-452e-9c00-6f670ae37d35)
+
+
+mobiel view
+
+
+
+![mobile view home](https://github.com/user-attachments/assets/70f8a68d-5ec8-4a39-a0e4-9f8b9431b725)
+
+
+![mobile view movies](https://github.com/user-attachments/assets/1523ffd3-f9aa-4381-9f8f-d33cc43aca9e)
+
+
+![mobile view details 1](https://github.com/user-attachments/assets/904be0fe-9974-47bd-9542-e55ef2d9ed74)
+
+
+![mobile view details 2](https://github.com/user-attachments/assets/c4d6562b-871b-4be2-babe-4ee3112ba0ae)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
