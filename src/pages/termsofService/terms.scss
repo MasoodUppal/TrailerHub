@@ -1,6 +1,6 @@
 @use '../../scss' as *;
 
-.about{
+.terms{
     @include flex(center,center);
     flex-direction: column;
     position: relative;
@@ -18,5 +18,8 @@
         padding-inline: 5rem;
         font-size: 1.2rem;    
     }
-    
+    li{
+        text-align: center;
+        padding-top: 0.3rem;
+    }
 }

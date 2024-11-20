@@ -1,6 +1,6 @@
 @use '../../scss' as *;
 
-.about{
+.live{
     @include flex(center,center);
     flex-direction: column;
     position: relative;

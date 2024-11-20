@@ -1,13 +1,15 @@
 @use '../../scss' as *;
 
-.about{
+.premium{
     @include flex(center,center);
     flex-direction: column;
     position: relative;
     padding: $header-height 0 2rem;
 
     h1{
-        font-size: 2rem;
+    }
+    h2{
+        font-size: 1.5rem;
         padding: 2rem;
     }
 

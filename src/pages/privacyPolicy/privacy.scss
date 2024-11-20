@@ -1,6 +1,6 @@
 @use '../../scss' as *;
 
-.about{
+.privacy{
     @include flex(center,center);
     flex-direction: column;
     position: relative;
