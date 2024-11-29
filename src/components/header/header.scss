@@ -112,6 +112,7 @@
         height: 8rem; // Set height for mobile
         background-color: $body-bg; // Set background color
         box-shadow: $box-shadow; // Optional: add shadow for visibility
+        z-index: 11;
     }
     
 }
